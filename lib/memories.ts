@@ -77,9 +77,9 @@ export const memories: readonly Memory[] = Object.freeze([
     'Union Square Heart'
   ),
   createMemory(
-    castelloDiAmorosaImage,
-    'castello-di-amorosa',
-    'Castello di Amorosa'
+    familyDeckLaughterImage,
+    'family-deck-laughter',
+    'Family Deck Laughter'
   ),
   createMemory(sanFranciscoBayImage, 'san-francisco-bay', 'San Francisco Bay'),
   createMemory(christmasCookiesImage, 'christmas-cookies', 'Christmas Cookies'),
@@ -131,11 +131,6 @@ export const memories: readonly Memory[] = Object.freeze([
     'japanese-tea-garden-pagoda',
     'Japanese Tea Garden Pagoda'
   ),
-  createMemory(
-    familyDeckLaughterImage,
-    'family-deck-laughter',
-    'Family Deck Laughter'
-  ),
   createMemory(youngLoveImage, 'young-love', 'Young Love'),
   createMemory(
     christmasWithDaughtersImage,
@@ -155,6 +150,11 @@ export const memories: readonly Memory[] = Object.freeze([
     "Pasquale's Cantina"
   ),
   createMemory(wisconsinHomeImage, 'wisconsin-home', 'Wisconsin Home'),
+  createMemory(
+    castelloDiAmorosaImage,
+    'castello-di-amorosa',
+    'Castello di Amorosa'
+  ),
   createMemory(summerEveningImage, 'summer-evening', 'Summer Evening'),
   createMemory(threeGenerationsImage, 'three-generations', 'Three Generations'),
   createMemory(barbAndDougImage, 'barb-and-doug', 'Barb and Doug'),

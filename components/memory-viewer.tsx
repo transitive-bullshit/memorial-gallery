@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { DownloadIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 
 import { MemoryImageTransition } from '@/components/memory-image-transition'
 import { Button } from '@/components/ui/button'
@@ -195,9 +195,16 @@ export function MemoryViewer({
   onClose,
   onIndexChange
 }: MemoryViewerProps) {
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(
+    null
+  )
   const selectedMemory =
     selectedIndex === undefined ? undefined : memories[selectedIndex]
   const isOpen = selectedMemory !== undefined
+
+  useLayoutEffect(() => {
+    setPortalContainer(document.body)
+  }, [])
 
   return (
     <Dialog
@@ -208,25 +215,24 @@ export function MemoryViewer({
         }
       }}
     >
-      <DialogContent
-        showCloseButton={false}
-        className='inset-0 top-0 left-0 block h-dvh w-full max-w-none translate-x-0 translate-y-0 gap-0 rounded-none border-0 bg-background p-0 shadow-none sm:max-w-none'
-      >
-        <DialogTitle className='sr-only'>
-          {selectedMemory?.alt ?? 'Memory'}
-        </DialogTitle>
-        <DialogDescription className='sr-only'>
-          Swipe or use the left and right arrow keys to move between memories.
-        </DialogDescription>
+      {selectedMemory && selectedIndex !== undefined && portalContainer ? (
+        <DialogContent
+          portalContainer={portalContainer}
+          showCloseButton={false}
+          className='inset-0 top-0 left-0 block h-dvh w-full max-w-none translate-x-0 translate-y-0 gap-0 rounded-none border-0 bg-background p-0 shadow-none sm:max-w-none'
+        >
+          <DialogTitle className='sr-only'>{selectedMemory.alt}</DialogTitle>
+          <DialogDescription className='sr-only'>
+            Swipe or use the left and right arrow keys to move between memories.
+          </DialogDescription>
 
-        {selectedIndex !== undefined ? (
           <MemoryCarousel
             initialIndex={selectedIndex}
             selectedIndex={selectedIndex}
             onIndexChange={onIndexChange}
           />
-        ) : null}
-      </DialogContent>
+        </DialogContent>
+      ) : null}
     </Dialog>
   )
 }

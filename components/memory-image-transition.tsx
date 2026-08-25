@@ -4,6 +4,12 @@ function getMemoryImageTransitionName(slug: string) {
   return `memory-image-${slug}`
 }
 
+const memoryImageShare = {
+  'memory-open': 'morph',
+  'memory-close': 'morph-return',
+  default: 'morph-return'
+} as const
+
 export function MemoryImageTransition({
   active,
   children,
@@ -20,7 +26,7 @@ export function MemoryImageTransition({
   return (
     <ViewTransition
       name={getMemoryImageTransitionName(slug)}
-      share='morph'
+      share={memoryImageShare}
       default='none'
     >
       {children}

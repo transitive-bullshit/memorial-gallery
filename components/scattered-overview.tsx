@@ -63,6 +63,7 @@ export function ScatteredOverview({
               href={`/memory/${memory.slug}`}
               scroll={false}
               prefetch={false}
+              transitionTypes={['memory-open']}
               aria-label={`Open ${memory.alt}`}
               className='memory-overview-card block rounded-[2px] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background'
             >

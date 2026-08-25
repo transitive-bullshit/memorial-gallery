@@ -29,7 +29,10 @@ export function MemorialGallery({
   const selectedIndex = getSelectedIndex(pathname)
 
   const closeMemory = useCallback(() => {
-    router.replace('/', { scroll: false })
+    router.replace('/', {
+      scroll: false,
+      transitionTypes: ['memory-close']
+    })
   }, [router])
 
   const selectMemory = useCallback(

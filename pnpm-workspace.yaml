@@ -1,7 +1,4 @@
 allowBuilds:
-  canvas: true
-  core-js: true
-  protobufjs: true
   sharp: true
 
 enablePrePostScripts: true
@@ -10,8 +7,3 @@ minimumReleaseAge: 1440
 
 minimumReleaseAgeExclude:
   - '@fisch0920/config'
-  - lqip-modern
-
-onlyBuiltDependencies:
-  - sharp
-  - simple-git-hooks

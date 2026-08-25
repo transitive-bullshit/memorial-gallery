@@ -116,6 +116,7 @@ export const memories: readonly Memory[] = Object.freeze([
     'home-christmas-tree',
     'Home Christmas Tree'
   ),
+  createMemory(familyDeckFourImage, 'family-deck-four', 'Family Deck Four'),
   createMemory(potteryStudioImage, 'pottery-studio', 'Pottery Studio'),
   createMemory(electionDayImage, 'election-day', 'Election Day'),
   createMemory(patioCatReadingImage, 'patio-cat-reading', 'Patio Cat Reading'),
@@ -129,6 +130,11 @@ export const memories: readonly Memory[] = Object.freeze([
     japaneseTeaGardenPagodaImage,
     'japanese-tea-garden-pagoda',
     'Japanese Tea Garden Pagoda'
+  ),
+  createMemory(
+    familyDeckLaughterImage,
+    'family-deck-laughter',
+    'Family Deck Laughter'
   ),
   createMemory(youngLoveImage, 'young-love', 'Young Love'),
   createMemory(
@@ -156,12 +162,6 @@ export const memories: readonly Memory[] = Object.freeze([
     colonialWilliamsburgImage,
     'colonial-williamsburg',
     'Colonial Williamsburg'
-  ),
-  createMemory(familyDeckFourImage, 'family-deck-four', 'Family Deck Four'),
-  createMemory(
-    familyDeckLaughterImage,
-    'family-deck-laughter',
-    'Family Deck Laughter'
   ),
   createMemory(familyDeckThreeImage, 'family-deck-three', 'Family Deck Three')
 ])

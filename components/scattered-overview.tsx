@@ -1,8 +1,5 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
 import { Random } from 'random'
 
 import { MemoryImageTransition } from '@/components/memory-image-transition'
@@ -22,7 +19,7 @@ function round(value: number) {
 function createScatteredCards(seed: string): readonly ScatteredCard[] {
   const random = new Random(seed)
 
-  return random.shuffle([...memories]).map((memory) => ({
+  return [...memories].map((memory) => ({
     memory,
     offsetX: round(random.float(-9, 9)),
     offsetY: round(random.float(-7, 7)),
@@ -30,17 +27,16 @@ function createScatteredCards(seed: string): readonly ScatteredCard[] {
   }))
 }
 
+// cards are static so every page sees the same arrangement
+const cards = createScatteredCards('memories-of-mum-v1')
+
 export function ScatteredOverview({
   imageTransitionsActive,
-  isCovered,
-  seed
+  isCovered
 }: {
   imageTransitionsActive: boolean
   isCovered: boolean
-  seed: string
 }) {
-  const [cards] = useState(() => createScatteredCards(seed))
-
   return (
     <section
       aria-hidden={isCovered || undefined}

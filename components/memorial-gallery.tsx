@@ -21,13 +21,7 @@ function isMemoryPath(pathname: string) {
   return /^\/memory(?:\/|$)/.test(pathname)
 }
 
-export function MemorialGallery({
-  children,
-  overviewSeed
-}: {
-  children: ReactNode
-  overviewSeed: string
-}) {
+export function MemorialGallery({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
   const selectedIndex = getSelectedIndex(pathname)
@@ -56,7 +50,6 @@ export function MemorialGallery({
       <ScatteredOverview
         imageTransitionsActive={selectedIndex === undefined}
         isCovered={isMemoryRoute}
-        seed={overviewSeed}
       />
       {isMemoryRoute ? (
         <div

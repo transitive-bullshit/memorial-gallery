@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+
 import './globals.css'
 
 function getMetadataBase() {
@@ -38,6 +39,11 @@ export const metadata: Metadata = {
     description: 'A quiet collection of moments with Mum.',
     url: '/',
     siteName: 'memories of mum'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'memories of mum',
+    description: 'A quiet collection of moments with Mum.'
   }
 }
 

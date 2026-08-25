@@ -47,7 +47,7 @@ export function OverviewGallery({
         memories of mum
       </h1>
 
-      <ul className='mt-12 grid grid-cols-1 gap-x-5 gap-y-10 sm:mt-16 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-14 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-16 2xl:grid-cols-5'>
+      <ul className='mt-12 grid grid-cols-1 gap-x-5 gap-y-16 sm:mt-16 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-14 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-16 2xl:grid-cols-5'>
         {cards.map(({ memory, offsetX, offsetY, rotation }, index) => (
           <li
             key={memory.slug}

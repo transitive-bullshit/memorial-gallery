@@ -1,6 +1,9 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { Random } from 'random'
+import { useState, type ComponentProps } from 'react'
 
 import { MemoryImageTransition } from '@/components/memory-image-transition'
 import { memories, type Memory } from '@/lib/memories'
@@ -30,7 +33,21 @@ function createScatteredCards(seed: string): readonly ScatteredCard[] {
 // cards are static so every page sees the same arrangement
 const cards = createScatteredCards('memories-of-mum-v1')
 
-export function ScatteredOverview({
+function HoverPrefetchLink(
+  props: Omit<ComponentProps<typeof Link>, 'prefetch'>
+) {
+  const [active, setActive] = useState(false)
+
+  return (
+    <Link
+      {...props}
+      prefetch={active ? null : false}
+      onMouseEnter={() => setActive(true)}
+    />
+  )
+}
+
+export function OverviewGallery({
   imageTransitionsActive,
   isCovered
 }: {
@@ -59,10 +76,9 @@ export function ScatteredOverview({
               transform: `translate3d(${offsetX}px, ${offsetY}px, 0) rotate(${rotation}deg)`
             }}
           >
-            <Link
+            <HoverPrefetchLink
               href={`/memory/${memory.slug}`}
               scroll={false}
-              prefetch={false}
               transitionTypes={['memory-open']}
               aria-label={`Open ${memory.alt}`}
               className='memory-overview-card block rounded-[2px] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background'
@@ -83,7 +99,7 @@ export function ScatteredOverview({
                   className='h-auto w-full rounded-[2px] bg-card object-contain shadow-[0_10px_30px_rgba(43,40,36,0.09)] ring-1 ring-foreground/5'
                 />
               </MemoryImageTransition>
-            </Link>
+            </HoverPrefetchLink>
           </li>
         ))}
       </ul>

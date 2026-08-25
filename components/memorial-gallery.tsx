@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, type ReactNode } from 'react'
 
 import { MemoryViewer } from '@/components/memory-viewer'
-import { ScatteredOverview } from '@/components/scattered-overview'
+import { OverviewGallery } from '@/components/overview-gallery'
 import { getMemoryIndexBySlug, memories } from '@/lib/memories'
 
 function getSelectedIndex(pathname: string) {
@@ -47,7 +47,7 @@ export function MemorialGallery({ children }: { children: ReactNode }) {
 
   return (
     <main className='min-h-screen bg-background text-foreground'>
-      <ScatteredOverview
+      <OverviewGallery
         imageTransitionsActive={selectedIndex === undefined}
         isCovered={isMemoryRoute}
       />

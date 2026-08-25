@@ -14,7 +14,6 @@
     "test": "run-p test:*",
     "test:format": "oxfmt --check",
     "test:lint": "oxlint",
-    "test:typecheck": "tsc --noEmit",
     "fix": "run-s fix:*",
     "fix:format": "oxfmt",
     "fix:lint": "oxlint --fix"

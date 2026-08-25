@@ -21,8 +21,7 @@
   --ring: #a66f33;
   --radius: 0.5rem;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --duration-move: 300ms;
-  --duration-return: 250ms;
+  --duration-memory-viewer: 250ms;
 }
 
 @theme inline {
@@ -88,35 +87,72 @@ button:not(:disabled),
   }
 }
 
-::view-transition-group(.morph) {
-  animation-duration: var(--duration-move);
+.memory-viewer-backdrop[data-state='open'] {
+  animation: memory-viewer-fade-in var(--duration-memory-viewer) var(--ease-out)
+    both;
 }
 
-::view-transition-group(.morph-return) {
-  animation-duration: var(--duration-return);
+.memory-viewer-backdrop[data-state='closed'] {
+  animation: memory-viewer-fade-out var(--duration-memory-viewer)
+    var(--ease-out) both;
 }
 
-::view-transition-image-pair(.morph),
-::view-transition-image-pair(.morph-return) {
-  animation-name: via-blur;
+.memory-viewer-content {
+  transform-origin: center;
 }
 
-@keyframes via-blur {
-  30% {
-    filter: blur(3px);
+.memory-viewer-content[data-state='open'] {
+  animation: memory-viewer-enter var(--duration-memory-viewer) var(--ease-out)
+    both;
+}
+
+.memory-viewer-content[data-state='closed'] {
+  animation: memory-viewer-exit var(--duration-memory-viewer) var(--ease-out)
+    both;
+}
+
+@keyframes memory-viewer-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-::view-transition {
-  pointer-events: none;
+@keyframes memory-viewer-exit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
 }
 
-::view-transition-old(root) {
-  display: none;
+@keyframes memory-viewer-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
-::view-transition-new(root) {
-  animation: none;
+@keyframes memory-viewer-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -132,10 +168,15 @@ button:not(:disabled),
     transition-duration: 0.01ms;
   }
 
-  ::view-transition-old(*),
-  ::view-transition-new(*),
-  ::view-transition-group(*) {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
+  .memory-viewer-backdrop[data-state='open'],
+  .memory-viewer-content[data-state='open'] {
+    animation-name: memory-viewer-fade-in;
+    animation-duration: 200ms;
+  }
+
+  .memory-viewer-backdrop[data-state='closed'],
+  .memory-viewer-content[data-state='closed'] {
+    animation-name: memory-viewer-fade-out;
+    animation-duration: 200ms;
   }
 }

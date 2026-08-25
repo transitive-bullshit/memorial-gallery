@@ -2,9 +2,8 @@
 
 import Image from 'next/image'
 import { DownloadIcon } from 'lucide-react'
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { MemoryImageTransition } from '@/components/memory-image-transition'
 import { Button } from '@/components/ui/button'
 import {
   Carousel,
@@ -142,22 +141,17 @@ function MemoryCarousel({
             className='h-full pl-0'
           >
             <div className='flex h-dvh w-full items-center justify-center px-2 pt-16 pb-20 sm:px-8 lg:px-16 lg:pt-14 lg:pb-14'>
-              <MemoryImageTransition
-                active={index === selectedIndex}
-                slug={memory.slug}
-              >
-                <Image
-                  src={memory.image}
-                  alt={memory.alt}
-                  sizes='(max-width: 639px) calc(100vw - 1rem), (max-width: 1023px) calc(100vw - 4rem), min(52rem, calc(100vw - 8rem))'
-                  quality={90}
-                  loading={index === selectedIndex ? 'eager' : 'lazy'}
-                  fetchPriority={index === selectedIndex ? 'high' : 'auto'}
-                  placeholder='blur'
-                  draggable={false}
-                  className='h-auto max-h-[calc(100dvh-9rem)] w-full max-w-[calc(100vw-1rem)] rounded-[2px] bg-card object-contain sm:max-w-[calc(100vw-4rem)] lg:max-h-[calc(100dvh-7rem)] lg:max-w-[52rem]'
-                />
-              </MemoryImageTransition>
+              <Image
+                src={memory.image}
+                alt={memory.alt}
+                sizes='(max-width: 639px) calc(100vw - 1rem), (max-width: 1023px) calc(100vw - 4rem), min(52rem, calc(100vw - 8rem))'
+                quality={90}
+                loading={index === selectedIndex ? 'eager' : 'lazy'}
+                fetchPriority={index === selectedIndex ? 'high' : 'auto'}
+                placeholder='blur'
+                draggable={false}
+                className='h-auto max-h-[calc(100dvh-9rem)] w-full max-w-[calc(100vw-1rem)] rounded-[2px] bg-card object-contain sm:max-w-[calc(100vw-4rem)] lg:max-h-[calc(100dvh-7rem)] lg:max-w-[52rem]'
+              />
             </div>
           </CarouselItem>
         ))}
@@ -185,26 +179,25 @@ function MemoryCarousel({
 }
 
 type MemoryViewerProps = {
-  selectedIndex: number | undefined
+  isOpen: boolean
+  selectedIndex: number
   onClose: () => void
+  onCloseAutoFocus: () => void
   onIndexChange: (index: number) => void
 }
 
 export function MemoryViewer({
+  isOpen,
   selectedIndex,
   onClose,
+  onCloseAutoFocus,
   onIndexChange
 }: MemoryViewerProps) {
-  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(
-    null
-  )
-  const selectedMemory =
-    selectedIndex === undefined ? undefined : memories[selectedIndex]
-  const isOpen = selectedMemory !== undefined
+  const selectedMemory = memories[selectedIndex]
 
-  useLayoutEffect(() => {
-    setPortalContainer(document.body)
-  }, [])
+  if (!selectedMemory) {
+    return null
+  }
 
   return (
     <Dialog
@@ -215,24 +208,26 @@ export function MemoryViewer({
         }
       }}
     >
-      {selectedMemory && selectedIndex !== undefined && portalContainer ? (
-        <DialogContent
-          portalContainer={portalContainer}
-          showCloseButton={false}
-          className='inset-0 top-0 left-0 block h-dvh w-full max-w-none translate-x-0 translate-y-0 gap-0 rounded-none border-0 bg-background p-0 shadow-none sm:max-w-none'
-        >
-          <DialogTitle className='sr-only'>{selectedMemory.alt}</DialogTitle>
-          <DialogDescription className='sr-only'>
-            Swipe or use the left and right arrow keys to move between memories.
-          </DialogDescription>
+      <DialogContent
+        overlayClassName='memory-viewer-backdrop'
+        showCloseButton={false}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault()
+          onCloseAutoFocus()
+        }}
+        className='memory-viewer-content inset-0 top-0 left-0 block h-dvh w-full max-w-none translate-x-0 translate-y-0 gap-0 rounded-none border-0 bg-background p-0 shadow-none sm:max-w-none'
+      >
+        <DialogTitle className='sr-only'>{selectedMemory.alt}</DialogTitle>
+        <DialogDescription className='sr-only'>
+          Swipe or use the left and right arrow keys to move between memories.
+        </DialogDescription>
 
-          <MemoryCarousel
-            initialIndex={selectedIndex}
-            selectedIndex={selectedIndex}
-            onIndexChange={onIndexChange}
-          />
-        </DialogContent>
-      ) : null}
+        <MemoryCarousel
+          initialIndex={selectedIndex}
+          selectedIndex={selectedIndex}
+          onIndexChange={onIndexChange}
+        />
+      </DialogContent>
     </Dialog>
   )
 }

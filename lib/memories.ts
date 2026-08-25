@@ -33,7 +33,6 @@ import patioCatReadingImage from '@/media/22-patio-cat-reading-rubber-stamp-fiel
 import potteryStudioImage from '@/media/20-pottery-studio-rubber-stamp-field-notes-opt.jpg'
 import readingTableImage from '@/media/14-reading-table-rubber-stamp-field-notes-opt.jpg'
 import sanFranciscoBayImage from '@/media/05-san-francisco-bay-rubber-stamp-field-notes-opt.jpg'
-import summerEveningImage from '@/media/33-summer-evening-rubber-stamp-field-notes-opt.jpg'
 import theaterNightImage from '@/media/30-theater-night-rubber-stamp-field-notes-opt.jpg'
 import threeGenerationsImage from '@/media/34-three-generations-rubber-stamp-field-notes-opt.jpg'
 import unionSquareHeartImage from '@/media/03-union-square-heart-rubber-stamp-field-notes-opt.jpg'
@@ -155,7 +154,6 @@ export const memories: readonly Memory[] = Object.freeze([
     'castello-di-amorosa',
     'Castello di Amorosa'
   ),
-  createMemory(summerEveningImage, 'summer-evening', 'Summer Evening'),
   createMemory(threeGenerationsImage, 'three-generations', 'Three Generations'),
   createMemory(barbAndDougImage, 'barb-and-doug', 'Barb and Doug'),
   createMemory(
@@ -165,15 +163,3 @@ export const memories: readonly Memory[] = Object.freeze([
   ),
   createMemory(familyDeckThreeImage, 'family-deck-three', 'Family Deck Three')
 ])
-
-const memoryLookup = new Map(
-  memories.map((memory, index) => [memory.slug, { memory, index }] as const)
-)
-
-export function getMemoryBySlug(slug: string): Memory | undefined {
-  return memoryLookup.get(slug)?.memory
-}
-
-export function getMemoryIndexBySlug(slug: string): number | undefined {
-  return memoryLookup.get(slug)?.index
-}

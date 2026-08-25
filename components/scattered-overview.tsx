@@ -32,17 +32,21 @@ function createScatteredCards(seed: string): readonly ScatteredCard[] {
 
 export function ScatteredOverview({
   imageTransitionsActive,
+  isCovered,
   seed
 }: {
   imageTransitionsActive: boolean
+  isCovered: boolean
   seed: string
 }) {
   const [cards] = useState(() => createScatteredCards(seed))
 
   return (
     <section
+      aria-hidden={isCovered || undefined}
       aria-labelledby='memories-title'
       className='mx-auto min-h-screen w-full max-w-[96rem] px-4 pt-12 pb-24 sm:px-8 sm:pt-16 lg:px-12 lg:pt-20'
+      inert={isCovered}
     >
       <h1
         id='memories-title'
@@ -51,7 +55,7 @@ export function ScatteredOverview({
         memories of mum
       </h1>
 
-      <ul className='mt-12 grid grid-cols-2 gap-x-5 gap-y-10 sm:mt-16 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-14 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-16 2xl:grid-cols-5'>
+      <ul className='mt-12 grid grid-cols-1 gap-x-5 gap-y-10 sm:mt-16 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-14 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-16 2xl:grid-cols-5'>
         {cards.map(({ memory, offsetX, offsetY, rotation }, index) => (
           <li
             key={memory.slug}
@@ -74,7 +78,7 @@ export function ScatteredOverview({
                 <Image
                   src={memory.image}
                   alt={memory.alt}
-                  sizes='(max-width: 639px) 44vw, (max-width: 1023px) 29vw, (max-width: 1535px) 22vw, 18vw'
+                  sizes='(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) 29vw, (max-width: 1535px) 22vw, 18vw'
                   quality={90}
                   loading={index < 6 ? 'eager' : 'lazy'}
                   fetchPriority={index === 0 ? 'high' : 'auto'}

@@ -17,6 +17,10 @@ function getSelectedIndex(pathname: string) {
   return getMemoryIndexBySlug(decodeURIComponent(match[1]))
 }
 
+function isMemoryPath(pathname: string) {
+  return /^\/memory(?:\/|$)/.test(pathname)
+}
+
 export function MemorialGallery({
   children,
   overviewSeed
@@ -27,6 +31,7 @@ export function MemorialGallery({
   const pathname = usePathname()
   const router = useRouter()
   const selectedIndex = getSelectedIndex(pathname)
+  const isMemoryRoute = isMemoryPath(pathname)
 
   const closeMemory = useCallback(() => {
     router.replace('/', {
@@ -50,9 +55,17 @@ export function MemorialGallery({
     <main className='min-h-screen bg-background text-foreground'>
       <ScatteredOverview
         imageTransitionsActive={selectedIndex === undefined}
+        isCovered={isMemoryRoute}
         seed={overviewSeed}
       />
-      {children}
+      {isMemoryRoute ? (
+        <div
+          aria-hidden='true'
+          className='fixed inset-0 z-30 bg-background'
+          data-memory-route-cover=''
+        />
+      ) : null}
+      <div className='relative z-40'>{children}</div>
       <MemoryViewer
         selectedIndex={selectedIndex}
         onClose={closeMemory}

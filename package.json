@@ -46,6 +46,7 @@
     "oxlint": "^1.79.0",
     "oxlint-tsgolint": "^7.0.2001",
     "pngjs": "^7.0.0",
+    "simple-git-hooks": "^2.13.1",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2"
   },
@@ -61,5 +62,5 @@
   "engines": {
     "node": ">=22"
   },
-  "packageManager": "pnpm@11.23.0"
+  "packageManager": "pnpm@11.24.0"
 }
